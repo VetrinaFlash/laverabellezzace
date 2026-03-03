@@ -17,68 +17,153 @@
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--brand-blue); color: #ffffff; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden;}
-
-        /* SEZIONE HERO CON SFONDO MAIOLICA CONTINUO */
-        .hero-section {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100vh; text-align: center; position: relative; padding: 20px;
-            /* Nuova texture maiolica continua */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><g fill="%23fff" fill-opacity="0.1"><path d="M50 40c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM30 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM70 70c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM30 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM10 30c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM50 70c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM70 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10z"/></g></svg>');
-            background-color: #f4f4f4; /* Colore di base chiaro */
+        
+        /* IMPEDISCE LO SCORRIMENTO E FISSA L'ALTEZZA */
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--brand-blue); 
+            color: #ffffff; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100dvh; /* Altezza esatta dello schermo visibile su mobile */
+            overflow: hidden; /* Blocca completamente lo scroll */
+            background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 10px 10px;
         }
 
-        /* EMBLEMA MAIOLICA CENTRALE CON LOGO */
+        /* CONTENITORE CENTRALE */
+        .main-content {
+            flex: 1; /* Prende tutto lo spazio disponibile al centro */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+        }
+
+        /* EMBLEMA LOGO (Cerchio bianco per logo nero) */
         .logo-emblem {
-            position: relative; z-index: 1; display: flex; align-items: center; justify-content: center;
-            width: 280px; height: 280px; background-color: var(--bg-light); border-radius: 50%;
-            border: 12px solid var(--brand-yellow); margin-bottom: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><g fill="%23005bb5" fill-opacity="0.1"><path d="M30 0l15 15-15 15L15 15z" /><path d="M0 30l15-15 15 15-15 15z" /><path d="M30 60l-15-15 15-15 15 15z" /><path d="M60 30l-15 15-15-15 15-15z" /></g></svg>');
-            animation: float 6s ease-in-out infinite;
+            display: flex; align-items: center; justify-content: center;
+            width: 210px; height: 210px; 
+            background-color: #ffffff; 
+            border-radius: 50%;
+            border: 6px solid var(--brand-yellow); 
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            padding: 20px;
         }
-        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+        .logo-img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        .logo-img { max-width: 200px; height: auto; }
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 900; color: #ffffff; margin-bottom: 5px; text-transform: uppercase; line-height: 1.1; text-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
+        h2 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--brand-yellow); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px;}
 
-        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.8rem; font-weight: 900; color: var(--brand-blue); margin-bottom: 10px; text-transform: uppercase; line-height: 1; }
-        h2 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 400; color: var(--brand-blue); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8;}
+        /* BANDA GIALLA PROMOZIONALE */
+        .promo-band {
+            background-color: var(--brand-yellow); color: var(--brand-blue);
+            width: 120%; padding: 12px 0; font-family: 'Montserrat', sans-serif; font-weight: 900;
+            font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2); transform: rotate(-3deg); margin-bottom: 40px;
+            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+        }
+        .promo-band span { display: inline-flex; align-items: center; gap: 6px;}
 
         /* PULSANTE D'AZIONE */
-        .btn-main { background: var(--brand-yellow); color: var(--brand-blue); border: none; padding: 22px 50px; border-radius: 50px; font-weight: 900; font-size: 1.4rem; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(255, 222, 0, 0.4); font-family: 'Montserrat', sans-serif; transition: all 0.3s ease; animation: pulse-btn 2.5s infinite; }
+        .btn-main { background: #ffffff; color: var(--brand-blue); border: none; padding: 18px 35px; border-radius: 50px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); font-family: 'Montserrat', sans-serif; transition: all 0.3s ease; animation: pulse-btn 2.5s infinite; }
         .btn-main:active { transform: scale(0.95); }
-        @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 222, 0, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 222, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 222, 0, 0); } }
+        @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); } 70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
 
-        /* FOOTER */
-        footer { background: var(--brand-blue); color: #ffffff; padding: 30px 20px; text-align: center; border-top: 6px solid var(--brand-yellow); font-family: 'Poppins', sans-serif; }
-        .footer-logo { max-width: 140px; margin-bottom: 20px; }
-        .info-line { font-size: 0.9rem; margin-bottom: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;}
+        /* BARRA INFERIORE (Fissata in basso) */
+        .bottom-bar {
+            width: 100%;
+            background: #004285;
+            padding: 15px 10px 25px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* ICONE SOCIAL GRANDI */
+        .social-icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .social-icons a:active { transform: scale(0.9); }
+        .social-icons a.fb { color: #1877F2; }
+        .social-icons a.ig { color: #E1306C; }
+        .social-icons a.wa { color: #25D366; }
+        .social-icons a:hover { background: #ffffff; }
+
+        .info-line { font-size: 0.85rem; font-weight: 400; display: flex; align-items: center; justify-content: center; gap: 8px;}
         .info-line i { color: var(--brand-yellow); }
+
+        /* Regolazioni automatiche per schermi molto piccoli (es. vecchi iPhone) */
+        @media (max-height: 700px) {
+            .logo-emblem { width: 160px; height: 160px; margin-bottom: 15px; border-width: 4px; padding: 10px;}
+            h1 { font-size: 2.1rem; }
+            h2 { margin-bottom: 20px; }
+            .promo-band { margin-bottom: 25px; padding: 8px 0; font-size: 0.9rem;}
+            .btn-main { padding: 15px 30px; font-size: 1.1rem; }
+            .bottom-bar { padding-bottom: 15px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero-section">
+    <div class="main-content">
+        
         <div class="logo-emblem">
             <img src="images/logo.png" alt="La Vera Bellezza" class="logo-img">
         </div>
         
         <h1>La Vera Bellezza</h1>
-        <h2>Trattoria e Pizzeria Napoletana</h2>
+        <h2>Trattoria & Pizzeria</h2>
+
+        <div class="promo-band">
+            <span><i class="fa-solid fa-utensils"></i> Promo Pranzo 8€</span>
+            <span style="opacity: 0.5;">|</span>
+            <span><i class="fa-solid fa-motorcycle"></i> Delivery Caserta</span>
+        </div>
 
         <a href="menu.html" class="btn-main">
-            <i class="fa-solid fa-list-check"></i> Sfoglia il Menù
+            <i class="fa-solid fa-pizza-slice"></i> Ordina Online
         </a>
     </div>
 
-    <footer>
-        <img src="images/logo.png" alt="La Vera Bellezza" class="footer-logo">
-        <div class="info-line"><i class="fa-solid fa-location-dot"></i> Via Gennaro Tescione 164, Caserta 81100</div>
-        <div class="social-row">
-            <a href="https://wa.me/393389743948" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="https://www.instagram.com/laverabellezza_ce/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    <div class="bottom-bar">
+        
+        <div class="social-icons">
+            <a href="https://www.facebook.com/p/La-Vera-Bellezza-Trattoria-Pizzeria-100063690666016/" class="fb" target="_blank">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            
+            <a href="https://www.instagram.com/laverabellezza_ce/" class="ig" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            
+            <a href="https://wa.me/393389743948" class="wa" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
         </div>
-    </footer>
+
+        <div class="info-line"><i class="fa-solid fa-location-dot"></i> Via G. Tescione 164, Caserta</div>
+    </div>
 
 </body>
 </html>

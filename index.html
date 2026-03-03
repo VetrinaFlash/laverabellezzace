@@ -5,108 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>La Vera Bellezza - Caserta</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --brand-blue: #005bb5; 
             --brand-yellow: #ffde00; 
-            --bg-light: #f4f7f9; 
+            --bg-light: #ffffff; 
             --text-dark: #1a1a1a;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--brand-blue); color: #ffffff; display: flex; flex-direction: column; min-height: 100vh; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--brand-blue); color: #ffffff; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden;}
 
-        /* Sfondo testurizzato per richiamare la carta stile volantino */
-        .texture-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px; z-index: 0; pointer-events: none; opacity: 0.5;
+        /* SEZIONE HERO CON SFONDO MAIOLICA CONTINUO */
+        .hero-section {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; text-align: center; position: relative; padding: 20px;
+            /* Nuova texture maiolica continua */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><g fill="%23fff" fill-opacity="0.1"><path d="M50 40c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM30 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM70 70c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM30 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM10 30c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM50 70c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zM70 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10z"/></g></svg>');
+            background-color: #f4f4f4; /* Colore di base chiaro */
         }
 
-        .container { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+        /* EMBLEMA MAIOLICA CENTRALE CON LOGO */
+        .logo-emblem {
+            position: relative; z-index: 1; display: flex; align-items: center; justify-content: center;
+            width: 280px; height: 280px; background-color: var(--bg-light); border-radius: 50%;
+            border: 12px solid var(--brand-yellow); margin-bottom: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><g fill="%23005bb5" fill-opacity="0.1"><path d="M30 0l15 15-15 15L15 15z" /><path d="M0 30l15-15 15 15-15 15z" /><path d="M30 60l-15-15 15-15 15 15z" /><path d="M60 30l-15 15-15-15 15-15z" /></g></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(2deg); } 100% { transform: translateY(0px) rotate(0deg); } }
 
-        /* HEADER & LOGO */
-        .logo-img { max-width: 250px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .logo-img { max-width: 200px; height: auto; }
 
-        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--brand-yellow); margin-bottom: 5px; text-transform: uppercase; line-height: 1.1; text-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
-        h2 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 600; color: #ffffff; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.8rem; font-weight: 900; color: var(--brand-blue); margin-bottom: 10px; text-transform: uppercase; line-height: 1; }
+        h2 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 400; color: var(--brand-blue); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8;}
 
-        /* MAIN ACTION BUTTON */
-        .btn-main { background: var(--brand-yellow); color: var(--brand-blue); border: none; padding: 20px 40px; border-radius: 50px; font-weight: 900; font-size: 1.3rem; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(255, 222, 0, 0.4); font-family: 'Montserrat', sans-serif; transition: all 0.3s ease; animation: pulse-btn 2s infinite; margin-bottom: 40px; }
+        /* PULSANTE D'AZIONE */
+        .btn-main { background: var(--brand-yellow); color: var(--brand-blue); border: none; padding: 22px 50px; border-radius: 50px; font-weight: 900; font-size: 1.4rem; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(255, 222, 0, 0.4); font-family: 'Montserrat', sans-serif; transition: all 0.3s ease; animation: pulse-btn 2.5s infinite; }
         .btn-main:active { transform: scale(0.95); }
-        .btn-main i { font-size: 1.5rem; }
         @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 222, 0, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 222, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 222, 0, 0); } }
 
-        /* HIGHLIGHTS SECTION (Basato sulle tue grafiche) */
-        .highlights { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 500px; }
-        
-        .promo-card { background: #ffffff; color: var(--brand-blue); border-radius: 16px; padding: 20px; border-bottom: 6px solid var(--brand-yellow); box-shadow: 0 8px 20px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 15px; text-align: left; }
-        .promo-icon { background: var(--brand-yellow); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; color: var(--brand-blue); }
-        .promo-text h3 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 900; margin-bottom: 3px; text-transform: uppercase;}
-        .promo-text p { font-size: 0.85rem; font-weight: 600; color: #555; line-height: 1.3;}
-
-        .social-card { background: rgba(0, 0, 0, 0.2); border: 2px dashed rgba(255,255,255,0.3); border-radius: 16px; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 10px; color: #fff; text-decoration: none;}
-        .social-card i { font-size: 2rem; color: #25D366; }
-        .social-card div { text-align: left; }
-        .social-card h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem;}
-        .social-card p { font-size: 0.8rem; opacity: 0.9; }
-
         /* FOOTER */
-        footer { position: relative; z-index: 1; background: rgba(0,0,0,0.3); padding: 20px; text-align: center; border-top: 4px solid var(--brand-yellow); margin-top: auto; }
-        .info-line { font-size: 0.85rem; margin-bottom: 8px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        footer { background: var(--brand-blue); color: #ffffff; padding: 30px 20px; text-align: center; border-top: 6px solid var(--brand-yellow); font-family: 'Poppins', sans-serif; }
+        .footer-logo { max-width: 140px; margin-bottom: 20px; }
+        .info-line { font-size: 0.9rem; margin-bottom: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;}
         .info-line i { color: var(--brand-yellow); }
     </style>
 </head>
 <body>
 
-    <div class="texture-overlay"></div>
-
-    <div class="container">
-        <img src="images/logo.png" alt="La Vera Bellezza" class="logo-img">
+    <div class="hero-section">
+        <div class="logo-emblem">
+            <img src="images/logo.png" alt="La Vera Bellezza" class="logo-img">
+        </div>
         
         <h1>La Vera Bellezza</h1>
-        <h2>Trattoria & Pizzeria Napoletana</h2>
+        <h2>Trattoria e Pizzeria Napoletana</h2>
 
         <a href="menu.html" class="btn-main">
-            <i class="fa-solid fa-pizza-slice"></i> Ordina Online Ora
+            <i class="fa-solid fa-list-check"></i> Sfoglia il Menù
         </a>
-
-        <div class="highlights">
-            
-            <div class="promo-card">
-                <div class="promo-icon"><i class="fa-solid fa-utensils"></i></div>
-                <div class="promo-text">
-                    <h3>Promo Pranzo 8€</h3>
-                    <p>Primo, Secondo, Contorno e Acqua inclusi!<br>Valida dal Lunedì al Sabato.</p>
-                </div>
-            </div>
-
-            <a href="https://wa.me/393389743948" class="social-card" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i>
-                <div>
-                    <h4>338 9743948</h4>
-                    <p>Contattaci per info e menù giornaliero</p>
-                </div>
-            </a>
-            
-            <a href="https://www.instagram.com/laverabellezza_ce/" class="social-card" target="_blank" style="border-color: rgba(255,222,0,0.5);">
-                <i class="fa-brands fa-instagram" style="color: #E1306C;"></i>
-                <div>
-                    <h4>@laverabellezza_ce</h4>
-                    <p>Seguici su Instagram!</p>
-                </div>
-            </a>
-
-        </div>
     </div>
 
     <footer>
+        <img src="images/logo.png" alt="La Vera Bellezza" class="footer-logo">
         <div class="info-line"><i class="fa-solid fa-location-dot"></i> Via Gennaro Tescione 164, Caserta 81100</div>
-        <div class="info-line"><i class="fa-regular fa-clock"></i> 12:00-15:30 | 19:00-00:00 (Dom Chiusi)</div>
+        <div class="social-row">
+            <a href="https://wa.me/393389743948" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/laverabellezza_ce/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        </div>
     </footer>
 
 </body>

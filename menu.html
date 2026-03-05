@@ -10,127 +10,189 @@
     
     <style>
         :root {
-            /* Palette Colori basata sui Social Media */
-            --brand-blue: #005bb5; /* Blu dei volantini */
-            --brand-yellow: #ffde00; /* Giallo acceso */
-            --brand-yellow-hover: #e6c800;
-            --bg-light: #f4f7f9; /* Sfondo chiaro per leggibilità del menù */
+            var(--brand-blue): #0b3765;
+            --brand-blue: #0b3765; 
+            --bg-cream: #f9f4e8; 
             --card-bg: #ffffff;
-            --text-dark: #1a1a1a;
-            --text-blue: #004285;
-            --text-muted: #666666;
-            --border-color: #e0e0e0;
+            --text-dark: #0b3765;
+            --text-muted: #5a738e;
+            --border-color: #d8ceb9;
+            --accent-gold: #c8a14b;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-light); color: var(--text-dark); padding-bottom: 120px; min-height: 100vh; }
+        
+        button, input, select, textarea {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: none;
+            border-radius: 0;
+        }
 
-        /* HEADER */
-        header { position: relative; text-align: center; padding: 30px 20px 40px; background: var(--brand-blue); border-bottom: 8px solid var(--brand-yellow); }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-cream); color: var(--text-dark); padding-bottom: 120px; min-height: 100vh; }
+
+        .checker-border {
+            height: 12px;
+            width: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--brand-blue),
+                var(--brand-blue) 15px,
+                #ffffff 15px,
+                #ffffff 30px
+            );
+        }
+
+        header { position: relative; text-align: center; padding: 25px 20px 30px; background: var(--bg-cream); }
         .header-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+        .logo-img { max-width: 200px; height: auto; margin-bottom: 15px; }
         
-        /* Inserimento Logo */
-        .logo-img { filter: invert(1)!important;max-width: 220px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
-        
-        header h2 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--brand-yellow); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px;}
-        
-        .restaurant-info { display: inline-block; background: #ffffff; padding: 15px 20px; border-radius: 12px; text-align: left; box-shadow: 0 8px 15px rgba(0,0,0,0.15); border: 2px solid var(--brand-yellow); }
+        .restaurant-info { display: inline-block; background: #ffffff; padding: 15px 20px; border-radius: 12px; text-align: left; box-shadow: 0 8px 15px rgba(11, 55, 101, 0.08); border: 1px solid var(--border-color); }
         .info-line { font-size: 0.85rem; color: var(--text-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; font-weight: 600;}
         .info-line:last-child { margin-bottom: 0; }
         .info-line i { color: var(--brand-blue); width: 18px; text-align: center; font-size: 1.1rem;}
 
-        /* FILTRI CATEGORIE */
-        .filters-container { display: flex; overflow-x: auto; gap: 12px; padding: 15px 20px; position: sticky; top: 0; background: var(--brand-blue); z-index: 100; border-bottom: 3px solid var(--brand-yellow); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .filters-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px 20px; position: sticky; top: 0; background: rgba(249, 244, 232, 0.95); backdrop-filter: blur(8px); z-index: 100; border-bottom: 2px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .filters-container::-webkit-scrollbar { display: none; }
-        .filter-btn { background: #ffffff; color: var(--brand-blue); border: 2px solid #ffffff; padding: 8px 20px; border-radius: 30px; font-weight: 700; font-size: 0.95rem; white-space: nowrap; cursor: pointer; transition: all 0.2s ease; font-family: 'Montserrat', sans-serif; text-transform: uppercase;}
-        .filter-btn.active { background: var(--brand-yellow); color: var(--brand-blue); border-color: var(--brand-yellow); box-shadow: 0 4px 10px rgba(255, 222, 0, 0.4); }
+        .filter-btn { background: #ffffff; color: var(--brand-blue); border: 2px solid var(--brand-blue); padding: 8px 18px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; cursor: pointer; transition: all 0.2s ease; font-family: 'Montserrat', sans-serif; text-transform: uppercase;}
+        .filter-btn.active { background: var(--brand-blue); color: #ffffff; box-shadow: 0 4px 10px rgba(11, 55, 101, 0.3); }
         
-        /* MENU CONTAINER */
-        .menu-container { padding: 0 15px; max-width: 900px; margin: 0 auto;}
-        .category-section { animation: fadeIn 0.4s ease-in-out; display: block; }
+        .menu-container { padding: 10px 15px; max-width: 900px; margin: 0 auto;}
+        .category-section { animation: fadeIn 0.4s ease-in-out; display: block; margin-bottom: 30px;}
         .category-section.hidden { display: none; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .category-title { font-family: 'Montserrat', sans-serif; padding: 30px 5px 15px; font-size: 1.8rem; font-weight: 900; color: var(--brand-blue); text-transform: uppercase; text-align: left; border-bottom: 4px solid var(--brand-yellow); margin-bottom: 20px; }
+        .category-title { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 1.6rem; 
+            font-weight: 900; 
+            color: #ffffff; 
+            background: var(--brand-blue);
+            display: inline-block;
+            padding: 6px 20px;
+            transform: skewX(-10deg);
+            text-transform: uppercase; 
+            margin: 20px 0 15px 5px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+        }
+        .category-title-inner { display: inline-block; transform: skewX(10deg); }
         
-        /* CARD MENU ITEM */
-        .menu-item { background-color: var(--card-bg); border-radius: 16px; padding: 18px; margin: 15px 0; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-color); border-left: 6px solid var(--brand-yellow); transition: transform 0.2s;}
-        .menu-item:active { transform: scale(0.98); }
-        .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .item-name { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text-blue); line-height: 1.2; padding-right: 10px; text-transform: uppercase;}
-        .item-price { font-size: 1.1rem; font-weight: 800; color: var(--brand-blue); background: var(--brand-yellow); padding: 4px 12px; border-radius: 20px; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
-        .item-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; font-weight: 400; flex-grow: 1;}
+        /* NUOVO LAYOUT CARDS CON IMMAGINE */
+        .menu-item-wrapper {
+            background-color: var(--card-bg); 
+            border-radius: 16px; 
+            margin: 15px 0; 
+            box-shadow: 0 4px 15px rgba(11, 55, 101, 0.08); 
+            border: 1px solid var(--border-color); 
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
         
-        .controls { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 15px; border-top: 2px dashed var(--border-color); }
-        .qty-box { display: flex; align-items: center; gap: 15px; background: var(--bg-light); padding: 5px 10px; border-radius: 30px;}
-        
-        .btn-control { background: #ffffff; color: var(--brand-blue); border: 2px solid var(--brand-blue); border-radius: 50%; width: 36px; height: 36px; font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
-        .btn-control:active { background: var(--brand-yellow); color: var(--brand-blue); border-color: var(--brand-yellow); }
-        .qty { font-weight: 800; font-size: 1.2rem; min-width: 25px; text-align: center; color: var(--text-dark);}
+        .menu-item-row {
+            display: flex;
+            gap: 15px;
+            padding: 12px;
+        }
 
-        /* PERSONALIZZAZIONE */
-        .btn-custom { background: var(--bg-light); color: var(--text-blue); border: 2px solid var(--border-color); border-radius: 8px; padding: 8px 14px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Montserrat', sans-serif; text-transform: uppercase;}
+        .item-img-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            overflow: hidden;
+            background-color: var(--bg-cream);
+        }
+
+        .item-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+        .item-name { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 800; color: var(--brand-blue); line-height: 1.2; padding-right: 5px; text-transform: uppercase;}
+        .item-price { font-size: 1.1rem; font-weight: 800; color: var(--brand-blue); white-space: nowrap; }
+        .item-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.3; margin-bottom: 8px; font-weight: 400; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
+        
+        .controls { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+        
+        .qty-box { display: flex; align-items: center; gap: 10px; background: var(--bg-cream); padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border-color);}
+        
+        .btn-control { background: #ffffff; color: var(--brand-blue); border: 2px solid var(--brand-blue); border-radius: 6px; width: 30px; height: 30px; font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;}
+        .btn-control:active { background: var(--brand-blue); color: #ffffff; }
+        .qty { font-weight: 800; font-size: 1rem; min-width: 22px; text-align: center; color: var(--brand-blue);}
+
+        .btn-custom { background: transparent; color: var(--text-muted); border: 1px solid var(--text-muted); border-radius: 6px; padding: 6px 12px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Montserrat', sans-serif; text-transform: uppercase;}
         .btn-custom:active { background: var(--brand-blue); color: #fff; border-color: var(--brand-blue); }
         .custom-section-title { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--brand-blue); margin: 20px 0 10px; font-size: 1.1rem; text-transform: uppercase; }
-        .custom-checkbox { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.95rem; color: var(--text-dark); background: var(--bg-light); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-weight: 600;}
+        .custom-checkbox { display: flex; align-items: center; margin-bottom: 10px; font-size: 0.95rem; color: var(--text-dark); background: var(--bg-cream); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-weight: 600;}
         .custom-checkbox input { margin-right: 12px; accent-color: var(--brand-blue); transform: scale(1.4); }
         
-        .variant-item { background: #fff8d6; padding: 12px; border-radius: 10px; margin-top: 15px; border-left: 4px solid var(--brand-blue); border-right: 1px solid #e0d080; border-top: 1px solid #e0d080; border-bottom: 1px solid #e0d080;}
+        .variants-container { padding: 0 12px; margin-bottom: 12px; }
+        .variant-item { background: var(--bg-cream); padding: 12px; border-radius: 8px; margin-top: 5px; border-left: 4px solid var(--accent-gold); border: 1px solid var(--border-color);}
         .variant-desc { font-size: 0.8rem; color: var(--text-dark); margin-bottom: 8px; line-height: 1.4; font-weight: 600;}
         .variant-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; color: var(--brand-blue); font-weight: 800; margin-bottom: 8px;}
 
-        /* ALLERGENI */
         .allergens-box { margin: 40px 15px 20px; padding: 20px; background: var(--card-bg); border: 2px dashed var(--brand-blue); border-radius: 12px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; text-align: justify; box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
         .allergens-box h4 { color: var(--brand-blue); margin-bottom: 10px; font-size: 1.1rem; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 800;}
 
-        /* CARRELLO FOOTER */
-        .cart-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--brand-blue); padding: 15px 20px 25px; display: flex; justify-content: space-between; align-items: center; border-top: 6px solid var(--brand-yellow); transform: translateY(120%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; border-radius: 20px 20px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.2);}
+        .cart-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--brand-blue); padding: 15px 20px 25px; display: flex; justify-content: space-between; align-items: center; border-top: 4px solid var(--accent-gold); transform: translateY(120%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; box-shadow: 0 -5px 20px rgba(0,0,0,0.2);}
         .cart-footer.visible { transform: translateY(0); }
         .cart-total { font-size: 1.5rem; font-weight: 900; color: #ffffff; font-family: 'Montserrat', sans-serif;}
-        .cart-total span { display: block; font-size: 0.8rem; color: var(--brand-yellow); text-transform: uppercase; font-family: 'Poppins', sans-serif; letter-spacing: 1px;}
-        .btn-checkout { background: var(--brand-yellow); color: var(--text-blue); border: none; padding: 14px 24px; border-radius: 50px; font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 222, 0, 0.4); font-family: 'Montserrat', sans-serif; text-transform: uppercase;}
+        .cart-total span { display: block; font-size: 0.8rem; color: var(--accent-gold); text-transform: uppercase; font-family: 'Poppins', sans-serif; letter-spacing: 1px;}
+        .btn-checkout { background: var(--bg-cream); color: var(--brand-blue); border: none; padding: 14px 24px; border-radius: 8px; font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); font-family: 'Montserrat', sans-serif; text-transform: uppercase;}
 
-        /* MODALS */
-        .checkout-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 66, 133, 0.85); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .checkout-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 55, 101, 0.85); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .checkout-modal.active { display: flex; }
-        .checkout-content { background: #ffffff; border: 5px solid var(--brand-yellow); border-radius: 24px; padding: 30px 20px; width: 100%; max-width: 450px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 15px 30px rgba(0,0,0,0.3);}
+        .checkout-content { background: var(--bg-cream); border: 4px solid var(--brand-blue); border-radius: 16px; padding: 30px 20px; width: 100%; max-width: 450px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 15px 30px rgba(0,0,0,0.3);}
         .close-modal { position: absolute; top: 15px; right: 20px; color: var(--brand-blue); font-size: 1.8rem; cursor: pointer; }
         .checkout-content h3 { font-family: 'Montserrat', sans-serif; color: var(--brand-blue); margin-bottom: 20px; font-weight: 900; font-size: 1.6rem; text-transform: uppercase; text-align: center;}
         
         .type-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
-        .type-toggle label { flex: 1; text-align: center; background: var(--bg-light); padding: 14px 10px; border-radius: 12px; cursor: pointer; border: 2px solid var(--border-color); color: var(--text-muted); font-weight: 700; font-size: 0.95rem; transition: 0.2s;}
+        .type-toggle label { flex: 1; text-align: center; background: #ffffff; padding: 14px 10px; border-radius: 8px; cursor: pointer; border: 2px solid var(--border-color); color: var(--text-muted); font-weight: 700; font-size: 0.95rem; transition: 0.2s;}
         .type-toggle input[type="radio"] { display: none; }
-        .type-toggle label.active { background: #eafafe; border-color: var(--brand-blue); color: var(--brand-blue); }
+        .type-toggle label.active { background: var(--brand-blue); border-color: var(--brand-blue); color: #ffffff; }
 
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-size: 0.9rem; color: var(--brand-blue); margin-bottom: 8px; font-weight: 700; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px; border-radius: 12px; background: var(--bg-light); border: 2px solid var(--border-color); color: var(--text-dark); outline: none; font-size: 1rem; appearance: none; -webkit-appearance: none; font-family: 'Poppins', sans-serif; transition: 0.2s;}
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--brand-blue); background: #ffffff; box-shadow: 0 0 0 3px rgba(0, 91, 181, 0.1);}
-        .form-group select option { background-color: #ffffff; color: var(--text-dark); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px; border-radius: 8px; background: #ffffff; border: 2px solid var(--border-color); color: var(--text-dark); outline: none; font-size: 1rem; font-family: 'Poppins', sans-serif; transition: 0.2s;}
         
-        .btn-confirm-order { width: 100%; background: var(--brand-blue); color: #ffffff; border: none; padding: 16px; border-radius: 14px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; transition: 0.2s;}
+        .form-group select {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%230b3765" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--brand-blue); box-shadow: 0 0 0 3px rgba(11, 55, 101, 0.1);}
+        
+        .btn-confirm-order { width: 100%; background: var(--brand-blue); color: #ffffff; border: none; padding: 16px; border-radius: 8px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; transition: 0.2s; box-shadow: 0 4px 10px rgba(11, 55, 101, 0.2);}
         .btn-confirm-order:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-confirm-order:active { transform: scale(0.98); }
-        .btn-confirm-order#btn-start-order { background: var(--brand-yellow); color: var(--brand-blue); }
-        .btn-confirm-order#pay-btn { background: var(--brand-yellow); color: var(--brand-blue); font-size: 1.2rem;}
 
         @media (min-width: 768px) {
             .filters-container { justify-content: center; flex-wrap: wrap; overflow-x: visible; padding: 20px; }
-            .filter-btn { font-size: 1rem; padding: 10px 24px; }
-            .menu-container { padding: 30px 20px; }
             .category-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .category-title { grid-column: span 2; text-align: center; margin-top: 20px; font-size: 2.2rem; }
-            .menu-item { margin: 0; height: 100%; justify-content: flex-start;}
-            .cart-footer { justify-content: center; gap: 50px; padding: 20px 0; }
+            .category-title { grid-column: span 2; margin-top: 20px;}
+            .menu-item-wrapper { margin: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between;}
             .allergens-box { grid-column: span 2; margin-top: 40px;}
         }
     </style>
 </head>
 <body>
 
+    <div class="checker-border"></div>
+
     <header>
         <div class="header-content">
-            <img src="images/logo.png" alt="La Vera Bellezza" class="logo-img">
+            <img src="images/logo.png" alt="La Vera Bellezza" class="logo-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg/800px-Eq_it-na_pizza-margherita_sep2005_sml.jpg'">
             <h2>Pizzeria dall’animo napoletano</h2>
             
             <div class="restaurant-info">
@@ -140,6 +202,8 @@
             </div>
         </div>
     </header>
+
+    <div class="checker-border" style="height: 6px; opacity: 0.5;"></div>
 
     <div class="filters-container" id="filters-container"></div>
     <div id="menu-container" class="menu-container"></div>
@@ -157,11 +221,11 @@
             <div class="type-toggle">
                 <label id="lbl-takeaway" class="active">
                     <input type="radio" name="order-type" value="takeaway" checked onchange="toggleOrderType()">
-                    🛍️ Ritiro Locale
+                    <i class="fa-solid fa-bag-shopping"></i> Asporto
                 </label>
                 <label id="lbl-delivery">
                     <input type="radio" name="order-type" value="delivery" onchange="toggleOrderType()">
-                    🛵 Domicilio
+                    <i class="fa-solid fa-motorcycle"></i> Domicilio
                 </label>
             </div>
 
@@ -181,8 +245,8 @@
             <i class="fa-solid fa-xmark close-modal" onclick="closeCheckout()"></i>
             <h3>Completa l'Ordine</h3>
             
-            <div id="checkout-summary" style="text-align: center; background: var(--bg-light); border: 2px dashed var(--brand-blue); padding: 12px; border-radius: 12px; margin-bottom: 10px; color: var(--brand-blue); font-weight: 800; font-size: 1.1rem; text-transform: uppercase;">
-                </div>
+            <div id="checkout-summary" style="text-align: center; background: #ffffff; border: 2px dashed var(--brand-blue); padding: 12px; border-radius: 8px; margin-bottom: 10px; color: var(--brand-blue); font-weight: 800; font-size: 1.1rem; text-transform: uppercase;"></div>
+            
             <div style="text-align: center; margin-bottom: 25px;">
                 <button class="btn-custom" onclick="editInitialSetup()">Modifica Orario/Modalità</button>
             </div>
@@ -212,7 +276,7 @@
             <i class="fa-solid fa-xmark close-modal" onclick="closeCustomModal()"></i>
             <h3 id="custom-title" style="font-size: 1.4rem; text-transform: uppercase; margin-bottom: 5px;">Personalizza</h3>
             
-            <div class="custom-section-title">Aggiungi (+0.50€)</div>
+            <div class="custom-section-title">Aggiungi (+1.00€)</div>
             <div id="custom-add-list" style="max-height: 180px; overflow-y: auto; margin-bottom: 15px;"></div>
             
             <div class="custom-section-title">Rimuovi (Gratis)</div>
@@ -224,194 +288,107 @@
         </div>
     </div>
 
-<form id="nexi-form" method="POST" action="https://int-ecommerce.nexi.it/ecomm/ecomm/DispatcherServlet" style="display: none;">
-    <input type="hidden" name="alias" id="nexi-alias">
-    <input type="hidden" name="importo" id="nexi-importo">
-    <input type="hidden" name="divisa" id="nexi-divisa">
-    <input type="hidden" name="codTrans" id="nexi-codTrans">
-    <input type="hidden" name="mac" id="nexi-mac">
-    <input type="hidden" name="url" id="nexi-url">
-    <input type="hidden" name="url_back" id="nexi-url-back">
-</form>
-
     <script>
-        // Array mantenuti ESATTAMENTE identici all'originale per non alterare la logica o i prezzi
+        // DATI MENU (COMPLETO DI BEVANDE E SPAZIO IMMAGINI)
         const menuData = [
             {
-                id: "sfizi",
-                category: "Sfizi",
+                id: "sfizi", category: "Gli sfizi",
                 items: [
-                    { id: 1, name: "Cuoppo di Terra", desc: "Zeppoline, crocchè, arancini, mozzarella in carrozza e verdure pastellate", price: 6.50 },
-                    { id: 2, name: "Crocchè di Patate Grande", desc: "Classico ripieno e fritto", price: 2.00 },
-                    { id: 3, name: "Frittatina di Pasta Grande", desc: "La vera frittatina napoletana", price: 2.50 },
-                    { id: 4, name: "Arancino Grande", desc: "Fritto tradizionale", price: 2.00 },
-                    { id: 5, name: "Montanare 2pz", desc: "Pizzette fritte col pomodoro", price: 5.00 },
-                    { id: 6, name: "Mozzarella in Carrozza Grande", desc: "Ripieno filante", price: 2.50 },
-                    { id: 7, name: "Patatine Fritte*", desc: "Porzione classica", price: 5.00 },
-                    { id: 8, name: "Patate Monty", desc: "Provola di Agerola e Würstel", price: 6.50 },
-                    { id: 9, name: "Polpettine di Scottona", desc: "Con patate monty", price: 8.00 }
+                    { id: 101, name: "Cuoppo di terra (12 pz)", desc: "", price: 4.50, image: "images/cuoppo.webp" },
+                    { id: 102, name: "Crocchè", desc: "", price: 1.50, image: "images/crocche.webp" },
+                    { id: 103, name: "Mozzarella in carrozza", desc: "", price: 2.00, image: "images/mozzcarr.webp" },
+                    { id: 104, name: "Frittatina di pasta", desc: "", price: 2.00, image: "" },
+                    { id: 105, name: "Patatine fritte", desc: "", price: 3.50, image: "images/patatine.webp" },
+                    { id: 106, name: "Patatine fritte (1/2 porzione)", desc: "", price: 2.00, image: "images/patatine.webp" },
+                    { id: 107, name: "Patate Monty", desc: "con provola di Agerola e würstel", price: 5.00, image: "images/monty.webp" },
+                    { id: 108, name: "Patate dippers", desc: "", price: 5.00, image: "" },
+                    { id: 109, name: "Patate dippers con polpettine", desc: "Polpettine di scottona e fonduta di formaggio", price: 8.00, image: "" }
                 ]
             },
             {
-                id: "antipasti",
-                category: "Antipasti",
+                id: "classiche", category: "Le classiche",
                 items: [
-                    { id: 10, name: "Tegamino di Parmigiana", desc: "Parmigiana di melanzane tradizionale", price: 7.00 },
-                    { id: 11, name: "Contadino", desc: "Misto di verdure di stagione, mozzarella di bufala DOP", price: 8.00 },
-                    { id: 12, name: "Bruschette Miste 4pz", desc: "Selezione di sapori", price: 5.00 },
-                    { id: 13, name: "Bruschette al Pomodoro 5pz", desc: "Classica pomodorini, aglio e basilico", price: 4.00 },
-                    { id: 14, name: "Tagliere Salumi e Formaggi", desc: "Selezione di prodotti nostrani", price: 10.00 }
+                    { id: 201, name: "Marinara", desc: "pomodoro San Marzano, aglio e origano", price: 4.00, image: "images/marinara.webp" },
+                    { id: 202, name: "Margherita", desc: "pomodoro San Marzano e fior di latte di Agerola", price: 5.00, image: "images/marghe.webp" },
+                    { id: 203, name: "Napoli", desc: "pomodoro San Marzano, olive di Gaeta, capperi, acciughe di Cetara, aglio e origano", price: 5.50, image: "" },
+                    { id: 204, name: "Diavola", desc: "pomodoro San Marzano, fior di latte di Agerola e salame piccante", price: 6.50, image: "images/diavola.webp" },
+                    { id: 205, name: "Parmigiana", desc: "pomodoro San Marzano, parmigiana di melanzane, provola di Agerola e scaglie di Parmigiano Reggiano", price: 6.50, image: "images/parmi.webp" },
+                    { id: 206, name: "Siciliana", desc: "pomodoro San Marzano, fior di latte di Agerola e melanzane a funghetto", price: 6.50, image: "images/sici.webp" },
+                    { id: 207, name: "Tedesca", desc: "fior di latte di Agerola, würstel e patatine", price: 6.50, image: "images/tede.webp" },
+                    { id: 208, name: "Verace", desc: "pomodoro San Marzano, mozzarella di bufala DOP e olio evo", price: 7.00, image: "" },
+                    { id: 209, name: "La Saporita", desc: "fior di latte di Agerola, gorgonzola, scamorza ed Emmenthal", price: 7.00, image: "" },
+                    { id: 210, name: "Mimosa", desc: "fior di latte di Agerola, panna, prosciutto cotto e mais", price: 7.00, image: "" },
+                    { id: 211, name: "Panzarotto", desc: "fior di latte di Agerola, crocchè di patate, panna e prosciutto cotto", price: 7.00, image: "" },
+                    { id: 212, name: "Pizza Chef", desc: "fior di latte di Agerola, panna, prosciutto cotto e funghi champignon", price: 7.00, image: "" },
+                    { id: 213, name: "Campagnola", desc: "pomodorini, provola di Agerola e verdure di stagione", price: 7.50, image: "images/camp.webp" },
+                    { id: 214, name: "Cafona", desc: "crema di pistacchio, mortadella e provola di Agerola", price: 8.50, image: "images/cafona.webp" },
+                    { id: 215, name: "O' Vulio", desc: "metà ripieno di ricotta, fior di latte di Agerola, salame e pepe. Metà Margherita", price: 7.50, image: "images/ovulio.webp" },
+                    { id: 216, name: "Capricciosa", desc: "pomodoro San Marzano, fior di latte di Agerola, carciofini, funghi champignon, cotto e olive nere", price: 7.50, image: "" },
+                    { id: 217, name: "Sfiziosa", desc: "fior di latte di Agerola, gorgonzola, crema di noci e speck", price: 8.00, image: "" },
+                    { id: 218, name: "Carrettiera", desc: "provola di Agerola, friarielli a km0 e salsiccia", price: 8.00, image: "" },
+                    { id: 219, name: "Gustosa", desc: "fior di latte di Agerola, crema di noci e prosciutto crudo di Parma", price: 8.00, image: "images/gustosa.webp" },
+                    { id: 220, name: "Zingara", desc: "pomodorini, fior di latte di Agerola, prosciutto crudo di Parma, rucola e scaglie", price: 8.00, image: "images/zingara.webp" },
+                    { id: 221, name: "Valtellina", desc: "fior di latte di Agerola, bresaola, rucola e scaglie", price: 8.50, image: "" },
+                    { id: 222, name: "Popolana", desc: "provola di Agerola, ragù napoletano, polpettine di carne scottona e ricotta di bufala", price: 8.50, image: "" }
                 ]
             },
             {
-                id: "primi",
-                category: "Primi Piatti",
+                id: "autore", category: "Pizze d'autore",
                 items: [
-                    { id: 15, name: "Ziti Spezzati alla Genovese", desc: "Sugo classico napoletano", price: 9.50 },
-                    { id: 16, name: "Pasta Patate Provola e Parmigiano", desc: "Il classico comfort food", price: 9.00 },
-                    { id: 17, name: "Spaghetti Quadrati", desc: "Con vongole e datterini gialli", price: 11.00 }
+                    { id: 301, name: "Partenope DOP", desc: "pomodorini gialli a pacchetelle, pomodorini rossi del Piennolo, mozzarella di bufala DOP e olio evo", price: 8.50, image: "" },
+                    { id: 302, name: "Don Mimì", desc: "pomodorini gialli a pacchetelle, provola di Agerola, spianata piccante e olio evo", price: 8.50, image: "images/donmimi.webp" },
+                    { id: 303, name: "Lucariello", desc: "pesto di basilico, pomodorini rossi del Piennolo, pomodorini gialli a pacchetelle, fior di latte di Agerola e olio evo", price: 8.50, image: "images/lucariello.webp" },
+                    { id: 304, name: "Cilentana", desc: "fior di latte di Agerola, salamino piccante di maialino nero casertano, pomodori secchi del Cilento e scaglie di caciotta", price: 9.00, image: "" },
+                    { id: 305, name: "Zuccotto", desc: "vellutata di zucca, provola di Agerola, pancetta e scaglie di Parmigiano Reggiano", price: 8.50, image: "" },
+                    { id: 306, name: "Casertana", desc: "crema di pecorino, fior di latte di Agerola, funghi porcini e salsiccia di maialino nero", price: 9.00, image: "images/casertana.webp" },
+                    { id: 307, name: "Leopoldo", desc: "fior di latte di Agerola, datterini gialli, pancetta cafona e tarallo di Leopoldo sbriciolato", price: 9.00, image: "" },
+                    { id: 308, name: "Cocozza", desc: "fior di latte di Agerola, vellutata di zucca, funghi porcini e salsiccia di maialino casertano", price: 9.00, image: "" },
+                    { id: 309, name: "A' Nonn", desc: "fior di latte di Agerola, sugo e carne alla genovese e formaggio grattugiato", price: 9.00, image: "" }
                 ]
             },
             {
-                id: "secondi",
-                category: "Secondi Piatti",
+                id: "ripieni", category: "I ripieni",
                 items: [
-                    { id: 18, name: "Tagliata di Manzo 300gr", desc: "Rucola, pomodorini e scaglie", price: 17.00 },
-                    { id: 19, name: "Hamburger di Scottona", desc: "Con contorno a scelta", price: 12.00 },
-                    { id: 20, name: "Baccalà in Cassuola", desc: "Datterini, olive e capperi", price: 12.00 },
-                    { id: 21, name: "Baccalà Fritto*", desc: "Accompagnato con scarole stufate", price: 12.00 }
+                    { id: 401, name: "Ripieno", desc: "pomodoro San Marzano, fior di latte di Agerola, ricotta, salame e pepe", price: 7.50, image: "" },
+                    { id: 402, name: "Pizza Fritta", desc: "calzone fritto con provola di Agerola, ricotta, cicoli e pepe", price: 7.50, image: "images/fritta.webp" },
+                    { id: 403, name: "Contadina", desc: "ripieno di scarola, provola di Agerola e olive nere", price: 7.50, image: "images/cont.webp" },
+                    { id: 404, name: "Ripieno Bronte", desc: "crema di pistacchio di Bronte, fior di latte di Agerola, ricotta di bufala, mortadella di Modena IGP e basilico", price: 9.00, image: "" },
+                    { id: 405, name: "La Vera Bellezza", desc: "ripieno con fior di latte di Agerola e ricotta, all'uscita: prosciutto crudo, rucola e scaglie di Parmigiano Reggiano", price: 8.00, image: "images/lvb.webp" }
                 ]
             },
             {
-                id: "insalatone",
-                category: "Insalatone",
+                id: "panini", category: "I panini",
                 items: [
-                    { id: 22, name: "Ciliegina", desc: "Insalatine, radicchio, melanzane grigliate, carote, pomodorini, olive bianche e bufala DOP", price: 7.50 },
-                    { id: 23, name: "Verdummara", desc: "Insalatine, radicchio, olive bianche, carote, verdure grigliate, uova sode, provola, pesto", price: 7.50 },
-                    { id: 24, name: "Carpaccio", desc: "Bresaola, rucola, scaglie di parmigiano e ananas", price: 8.00 },
-                    { id: 25, name: "La Vegana", desc: "Insalatine, radicchio, pomodorini, patate, mais, rucola, carote, frutta di stagione", price: 7.00 },
-                    { id: 26, name: "Mangiami", desc: "Insalatine, rucola, radicchio, finocchio, noci, frutta di stagione", price: 7.00 },
-                    { id: 27, name: "Pimpante", desc: "Insalatine, radicchio, pollo, tonno, uova sode, pomodorini, carote, scaglie parmigiano", price: 8.50 },
-                    { id: 28, name: "Fresella", desc: "Insalatine, pomodori, rucola, bufala DOP, olive, carote, mais, tonno", price: 8.00 }
+                    { id: 501, name: "Pub", desc: "cotoletta, patate e fior di latte di Agerola", price: 7.50, image: "" },
+                    { id: 502, name: "Mammà", desc: "provola di Agerola, melanzane a funghetto e polpette di carne di scottona", price: 8.00, image: "" },
+                    { id: 503, name: "Completo", desc: "doppio hamburger, insalata mista, provola di Agerola e patatine fritte", price: 9.00, image: "" }
                 ]
             },
             {
-                id: "pizze-classiche",
-                category: "Pizze Classiche",
+                id: "panuozzi", category: "I panuozzi",
                 items: [
-                    { id: 29, name: "Cosacca", desc: "Pomodoro San Marzano, basilico, scaglie di parmigiano", price: 5.00 },
-                    { id: 30, name: "Marinara", desc: "Pomodoro San Marzano, aglio, origano", price: 5.00 },
-                    { id: 31, name: "Margherita", desc: "Pomodoro San Marzano, fior di latte di Agerola, basilico", price: 6.00 },
-                    { id: 32, name: "Capricciosa", desc: "Pomodoro, fior di latte, carciofini, funghi champignon, prosciutto cotto, olive nere", price: 8.00 },
-                    { id: 33, name: "Parmigiana", desc: "Pomodoro, parmigiana di melanzane, provola di Agerola e parmigiano", price: 7.50 },
-                    { id: 34, name: "Diavola", desc: "Pomodoro San Marzano, fior di latte, salame piccante nostrano", price: 7.50 },
-                    { id: 35, name: "Siciliana", desc: "Pomodoro San Marzano, fior di latte di Agerola, melanzane a funghetto", price: 7.50 },
-                    { id: 36, name: "Pizza Chef", desc: "Fior di latte, panna, prosciutto cotto e funghi champignon", price: 7.50 },
-                    { id: 37, name: "Mimosa", desc: "Fior di latte di Agerola, panna, prosciutto cotto e mais", price: 7.00 },
-                    { id: 38, name: "Napoli", desc: "Pomodoro, olive di Gaeta, capperi, acciughe di Cetara, aglio e origano", price: 6.50 },
-                    { id: 39, name: "Tedesca", desc: "Fior di latte di Agerola, würstel e patatine", price: 7.00 }
+                    { id: 601, name: "Paesano", desc: "salsiccia, friarielli a km0 e provola di Agerola", price: 8.00, image: "" },
+                    { id: 602, name: "Profumato", desc: "pomodorini, prosciutto crudo di Parma, rucola e fior di latte di Agerola", price: 8.00, image: "" },
+                    { id: 603, name: "Leggero", desc: "bresaola, fior di latte di Agerola, rucola e scaglie di Parmigiano Reggiano", price: 8.50, image: "images/leggero.webp" }
                 ]
             },
             {
-                id: "pizze-casa",
-                category: "Pizze della Casa",
+                id: "dolci", category: "Dolci",
                 items: [
-                    { id: 40, name: "La Vera Bellezza", desc: "Ripieno fior di latte e ricotta. In uscita: crudo di Parma, rucola, scaglie, olio evo", price: 8.50 },
-                    { id: 41, name: "Ripieno", desc: "Pomodoro San Marzano, fior di latte, ricotta, salame Napoli e pepe", price: 8.00 },
-                    { id: 42, name: "Zingara", desc: "Pomodorini, fior di latte. In uscita: crudo di Parma, scaglie e rucola", price: 8.50 },
-                    { id: 43, name: "La Saporita", desc: "Fior di latte, gorgonzola, emmenthal, scamorza, crema di pecorino", price: 7.00 },
-                    { id: 44, name: "Popolana", desc: "Provola, ragù napoletano, polpettine scottona e ricotta bufala", price: 9.00 },
-                    { id: 45, name: "Gustosa", desc: "Fior di latte di Agerola, crema di noci, crudo di Parma", price: 8.00 },
-                    { id: 46, name: "La Verace", desc: "Pomodoro San Marzano, bufala DOP, basilico e olio evo", price: 8.00 },
-                    { id: 47, name: "Contadina", desc: "Ripieno di scarola stufata con olive nere e capperi, provola di Agerola", price: 8.00 },
-                    { id: 48, name: "Campagnola", desc: "Pomodorini, provola di Agerola e verdure di stagione", price: 8.00 },
-                    { id: 49, name: "Vulio", desc: "Metà ripieno ricotta e salame, metà margherita", price: 8.50 },
-                    { id: 50, name: "Valtellina", desc: "Fior di latte, bresaola, rucola e scaglie di parmigiano", price: 9.00 },
-                    { id: 51, name: "Tirolese", desc: "Provola di Agerola, crema di pecorino DOP, speck di montagna", price: 8.00 },
-                    { id: 52, name: "Cafona", desc: "Crema di pistacchio di Bronte, mortadella e provola di Agerola", price: 9.00 },
-                    { id: 53, name: "Sfiziosa", desc: "Crema di noci, fior di latte di Agerola, gorgonzola e speck", price: 8.50 },
-                    { id: 54, name: "Cocozza", desc: "Crema di zucca, fior di latte, salsiccia paesana e funghi porcini", price: 9.00 },
-                    { id: 55, name: "Panzarotto", desc: "Fior di latte, crocchè di patate, panna e prosciutto cotto", price: 7.50 },
-                    { id: 56, name: "Pizza Fritta Ripiena", desc: "Provola di Agerola, ricotta, cicoli napoletani e pepe", price: 8.00 },
-                    { id: 57, name: "Carrettiera", desc: "Provola di Agerola, salsiccia paesana e friarielli a km0", price: 8.50 },
-                    { id: 58, name: "Genovese", desc: "Provola, sugo di carne alla genovese, formaggio grattugiato", price: 9.00 }
+                    { id: 701, name: "Pizza con Nutella Ferrero", desc: "", price: 6.00, image: "images/nute.webp" }
                 ]
             },
             {
-                id: "gourmet",
-                category: "Pizze Gourmet",
+                id: "bevande", category: "Bevande",
                 items: [
-                    { id: 59, name: "Partenope DOP", desc: "Pomodorini del piennolo, gialli a pacchetelle, bufala DOP, basilico, olio evo", price: 9.00 },
-                    { id: 60, name: "Don Mimì", desc: "Pomodorini gialli a pacchetelle, provola di Agerola, spianata calabra, basilico", price: 9.00 },
-                    { id: 61, name: "Casertana", desc: "Crema pecorino DOP, fior di latte, funghi porcini, salsiccia maialino nero", price: 9.50 },
-                    { id: 62, name: "Lucariello", desc: "Pesto basilico, pomodorini rossi del piennolo, gialli a pacchetelle, fior di latte", price: 8.50 },
-                    { id: 63, name: "La Cetarese", desc: "Bufala DOP, acciughe di Cetara, pomodorini gialli, olive nere e olio evo", price: 8.50 },
-                    { id: 64, name: "Zuccotto", desc: "Vellutata di zucca, provola di Agerola, pancetta paesana, scaglie", price: 8.50 },
-                    { id: 65, name: "Leopoldo", desc: "Fior di latte, provola, pomodorini gialli, pancetta cafona, tarallo sbriciolato", price: 9.50 },
-                    { id: 66, name: "Ripieno Bronte", desc: "Crema pistacchio Bronte, fior di latte, ricotta bufala, mortadella IGP", price: 9.50 },
-                    { id: 67, name: "La Cilentana", desc: "Fior di latte, salamino piccante maialino nero, olive nere, pomodori secchi", price: 9.50 }
-                ]
-            },
-            {
-                id: "panuozzi",
-                category: "Panuozzi & Panini",
-                items: [
-                    { id: 68, name: "Panuozzo Profumato", desc: "Fior di latte di Agerola, pomodorini, crudo di Parma e rucola", price: 8.50 },
-                    { id: 69, name: "Panuozzo Leggero", desc: "Bresaola, fior di latte di Agerola, rucola e scaglie di parmigiano", price: 9.00 },
-                    { id: 70, name: "Panuozzo Paesano", desc: "Provola di Agerola, salsiccia paesana e friarielli a km0", price: 8.50 },
-                    { id: 71, name: "Panino Completo", desc: "Doppio hamburger, insalata mista, provola di Agerola, patate fritte*", price: 9.00 },
-                    { id: 72, name: "Panino Mammà", desc: "Provola di Agerola, melanzane a funghetto, polpettine di carne scottona", price: 8.50 },
-                    { id: 73, name: "Panino Pab", desc: "Cotoletta di carne, fior di latte di Agerola e patate fritte*", price: 8.00 }
-                ]
-            },
-            {
-                id: "dolci",
-                category: "Frutta, Dolci & Gelati",
-                items: [
-                    { id: 74, name: "Ananas", desc: "Frutta fresca", price: 4.00 },
-                    { id: 75, name: "Tagliata di Frutta", desc: "Selezione di stagione", price: 4.00 },
-                    { id: 76, name: "Tiramisu", desc: "Classico dolce al caffè", price: 4.00 },
-                    { id: 77, name: "Cocco e Nutella", desc: "Dessert goloso", price: 5.00 },
-                    { id: 78, name: "Tortino al Cioccolato", desc: "Cuore caldo e gelato alla vaniglia", price: 6.00 },
-                    { id: 79, name: "Cheesecake", desc: "Vari gusti (chiedere disponibilità)", price: 4.50 },
-                    { id: 80, name: "Semifreddi Bindi", desc: "Selezione di semifreddi", price: 6.00 },
-                    { id: 81, name: "Ricotta e Pera", desc: "Torta classica campana", price: 5.00 },
-                    { id: 82, name: "Pizza alla Nutella", desc: "Pizza dessert", price: 7.50 },
-                    { id: 83, name: "Tartufo Bindi", desc: "Gelato tartufo", price: 5.50 },
-                    { id: 84, name: "Sorbetto al Limone", desc: "Freschissimo e digestivo", price: 4.00 },
-                    { id: 85, name: "Croccante Bindi", desc: "Gelato croccante", price: 6.50 }
-                ]
-            },
-            {
-                id: "bibite",
-                category: "Bibite & Birre",
-                items: [
-                    { id: 86, name: "Coca Cola Vetro 0.33", desc: "Classica o Zero", price: 2.50 },
-                    { id: 87, name: "Fanta Vetro 0.33", desc: "", price: 2.50 },
-                    { id: 88, name: "Acqua Sorgesana 0.75", desc: "In vetro", price: 2.00 },
-                    { id: 89, name: "Acqua Lete 0.75", desc: "In vetro", price: 2.00 },
-                    { id: 90, name: "Weiss Krombacher 0.50", desc: "Birra in bottiglia", price: 5.00 },
-                    { id: 91, name: "Kozel Chiara 0.33", desc: "Birra in bottiglia", price: 3.00 },
-                    { id: 92, name: "Ceres Rossa / Strong 0.33", desc: "Birra in bottiglia (Rossa 5€ - Strong 4€)", price: 5.00 },
-                    { id: 93, name: "Krombacher Pilsner 0.33", desc: "Birra in bottiglia", price: 3.50 },
-                    { id: 94, name: "Forst Rossa Doppio Malto 0.33", desc: "Birra in bottiglia", price: 4.00 },
-                    { id: 95, name: "Menabrea Chiara (Spina)", desc: "0.20cl (3€) - 0.40cl (4.50€)", price: 4.50 },
-                    { id: 96, name: "Menabrea Rossa (Spina)", desc: "0.20cl (3.50€) - 0.40cl (6€) - 0.50cl (7€)", price: 6.00 }
-                ]
-            },
-            {
-                id: "vini",
-                category: "Cantina Vini",
-                items: [
-                    { id: 97, name: "Falanghina della Casa 0.75", desc: "Vino bianco", price: 7.00 },
-                    { id: 98, name: "Greco IGP / Pompeiano 0.75", desc: "Cantine Santacosta / Federiciane", price: 15.00 },
-                    { id: 99, name: "Falanghina IGP 0.75", desc: "Tenuta Principe", price: 10.00 },
-                    { id: 100, name: "Aglianico della Casa 0.75", desc: "Vino rosso", price: 7.00 },
-                    { id: 101, name: "Piedirosso IGP 0.75", desc: "Tenuta Principe", price: 12.00 },
-                    { id: 102, name: "Aglianico IGP 0.75", desc: "Tenuta Principe", price: 10.00 },
-                    { id: 103, name: "Epopea Rosso 0.75", desc: "Casa vinicola Carlo Mazzella (Ischia)", price: 15.00 },
-                    { id: 104, name: "Onice Aglianico Superiore 0.75", desc: "Cantine Nativ", price: 25.00 },
-                    { id: 105, name: "Ocone Frizzichella 0.75", desc: "Vino rosato", price: 15.00 }
+                    { id: 801, name: "Acqua Naturale 50cl", desc: "In bottiglietta", price: 1.00, image: "" },
+                    { id: 802, name: "Acqua Frizzante 50cl", desc: "In bottiglietta", price: 1.00, image: "" },
+                    { id: 803, name: "Coca-Cola 33cl", desc: "In lattina", price: 2.00, image: "" },
+                    { id: 804, name: "Coca-Cola Zero 33cl", desc: "In lattina", price: 2.00, image: "" },
+                    { id: 805, name: "Fanta 33cl", desc: "In lattina", price: 2.00, image: "" },
+                    { id: 806, name: "Sprite 33cl", desc: "In lattina", price: 2.00, image: "" },
+                    { id: 807, name: "Birra Nastro Azzurro 33cl", desc: "In vetro", price: 2.50, image: "" },
+                    { id: 808, name: "Birra Ichnusa Non Filtrata 50cl", desc: "In vetro", price: 3.50, image: "" }
                 ]
             }
         ];
@@ -457,23 +434,46 @@
 
         function renderMenu() {
             const container = document.getElementById('menu-container');
+
             menuData.forEach(category => {
-                const sectionDiv = document.createElement('div'); sectionDiv.className = 'category-section'; sectionDiv.id = `cat-${category.id}`;
-                sectionDiv.innerHTML = `<h2 class="category-title">${category.category}</h2>`;
+                const sectionDiv = document.createElement('div'); 
+                sectionDiv.className = 'category-section'; 
+                sectionDiv.id = `cat-${category.id}`;
+                
+                sectionDiv.innerHTML = `<div class="category-title"><span class="category-title-inner">${category.category}</span></div>`;
+                
                 category.items.forEach(item => {
+                    let hideCustomBtn = (category.id === 'dolci' || !item.desc || item.desc.trim() === "");
+                    let customBtnHtml = hideCustomBtn ? '' : `<button class="btn-custom" onclick="openCustomModal(${item.id})"><i class="fa-solid fa-pen"></i></button>`;
+                    
+                    let imgHtml = item.image && item.image.trim() !== "" 
+                        ? `<img src="${item.image}" loading="lazy" alt="${item.name}">` 
+                        : `<div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background-color: var(--bg-cream); color: var(--text-muted); font-size: 0.75rem; font-weight: 700;">NO FOTO</div>`;
+
                     sectionDiv.innerHTML += `
-                        <div class="menu-item">
-                            <div class="item-header"><div class="item-name">${item.name}</div><div class="item-price">${item.price.toFixed(2).replace('.',',')}€</div></div>
-                            <p class="item-desc">${item.desc}</p>
-                            <div class="controls">
-                                <button class="btn-custom" onclick="openCustomModal(${item.id})"><i class="fa-solid fa-pen"></i> Personalizza</button>
-                                <div class="qty-box">
-                                    <button class="btn-control" onclick="updateQty('${item.id}', -1)"><i class="fa-solid fa-minus"></i></button>
-                                    <span class="qty" id="qty-${item.id}">0</span>
-                                    <button class="btn-control" onclick="updateQty('${item.id}', 1)"><i class="fa-solid fa-plus"></i></button>
+                        <div class="menu-item-wrapper">
+                            <div class="menu-item-row">
+                                <div class="item-img-container">
+                                    ${imgHtml}
+                                </div>
+                                <div class="item-details">
+                                    <div class="item-header">
+                                        <div class="item-name">${item.name}</div>
+                                        <div class="item-price">${item.price.toFixed(2).replace('.',',')}€</div>
+                                    </div>
+                                    <p class="item-desc">${item.desc}</p>
+                                    <div class="controls">
+                                        ${customBtnHtml}
+                                        <div style="flex-grow: 1;"></div>
+                                        <div class="qty-box">
+                                            <button class="btn-control" onclick="updateQty('${item.id}', -1)"><i class="fa-solid fa-minus" style="font-size: 0.8rem"></i></button>
+                                            <span class="qty" id="qty-${item.id}">0</span>
+                                            <button class="btn-control" onclick="updateQty('${item.id}', 1)"><i class="fa-solid fa-plus" style="font-size: 0.8rem"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="variants-${item.id}"></div>
+                            <div id="variants-${item.id}" class="variants-container"></div>
                         </div>`;
                 });
                 container.appendChild(sectionDiv);
@@ -490,6 +490,7 @@
             container.innerHTML += allergensHTML;
         }
 
+        // Il resto delle funzioni JS rimane identico (personalizzazioni, calcolo, checkout)
         function openCustomModal(id) {
             currentCustomItemId = id;
             const item = itemMap[id];
@@ -529,7 +530,7 @@
             if(!currentCustomItemId) return;
             let basePrice = itemMap[currentCustomItemId].price;
             let addedCount = document.querySelectorAll('.custom-add-chk:checked').length;
-            let newPrice = basePrice + (addedCount * 0.50);
+            let newPrice = basePrice + (addedCount * 1.00);
             document.getElementById('custom-price-btn').innerText = newPrice.toFixed(2).replace('.',',');
         }
 
@@ -551,7 +552,7 @@
                 return;
             }
 
-            let newPrice = baseItem.price + (added.length * 0.50);
+            let newPrice = baseItem.price + (added.length * 1.00);
             let signature = `${currentCustomItemId}|A:${added.sort().join('-')}|R:${removed.sort().join('-')}`;
             
             let hash = 0; 
@@ -567,7 +568,7 @@
                             <span>Personalizzata (${newPrice.toFixed(2).replace('.',',')}€)</span>
                             <div style="display:flex; align-items:center; gap:10px;">
                                 <button class="btn-control" style="width:26px;height:26px;" onclick="updateQty('${customId}', -1)"><i class="fa-solid fa-minus" style="font-size:0.8rem;"></i></button>
-                                <span class="qty" style="font-size:1rem; min-width:20px;" id="qty-${customId}">0</span>
+                                <span class="qty" style="font-size:1rem; min-width:20px; color:var(--brand-blue);" id="qty-${customId}">0</span>
                                 <button class="btn-control" style="width:26px;height:26px;" onclick="updateQty('${customId}', 1)"><i class="fa-solid fa-plus" style="font-size:0.8rem;"></i></button>
                             </div>
                         </div>
@@ -699,10 +700,10 @@
             const summaryDiv = document.getElementById('checkout-summary');
             if (type === 'delivery') {
                 document.getElementById('delivery-fields').style.display = 'block';
-                summaryDiv.innerHTML = `<i class="fa-solid fa-motorcycle"></i> Consegna a Domicilio<br><span style="font-size:0.9rem; color:var(--text-muted);">Ore ${orario}</span>`;
+                summaryDiv.innerHTML = `<i class="fa-solid fa-motorcycle"></i> Consegna a Domicilio<br><span style="font-size:0.9rem; color:var(--text-muted); font-weight:600;">Ore ${orario}</span>`;
             } else {
                 document.getElementById('delivery-fields').style.display = 'none';
-                summaryDiv.innerHTML = `<i class="fa-solid fa-bag-shopping"></i> Ritiro al Locale<br><span style="font-size:0.9rem; color:var(--text-muted);">Ore ${orario}</span>`;
+                summaryDiv.innerHTML = `<i class="fa-solid fa-bag-shopping"></i> Ritiro al Locale<br><span style="font-size:0.9rem; color:var(--text-muted); font-weight:600;">Ore ${orario}</span>`;
             }
             document.getElementById('checkout-modal').classList.add('active'); 
         }
@@ -722,9 +723,9 @@
             if (orderType === 'delivery') {
                 const address = document.getElementById('cust-address').value.trim();
                 if(!address) { alert("Inserisci l'indirizzo di consegna."); return; }
-                deliveryInfo = `🛵 *Consegna a Domicilio*%0A📍 Indirizzo: ${address}%0A🕒 Orario Richiesto: ${orario}`;
+                deliveryInfo = `*Consegna a Domicilio*\nIndirizzo: ${address}\nOrario Richiesto: ${orario}`;
             } else {
-                deliveryInfo = `🛍️ *Ritiro al Locale*%0A🕒 Orario Richiesto: ${orario}`;
+                deliveryInfo = `*Ritiro al Locale*\nOrario Richiesto: ${orario}`;
             }
 
             const cleanName = name.replace(/\s+/g, '').toUpperCase(); 
@@ -736,9 +737,9 @@
             const todayStr = getTodayString();
 
             let total = 0; 
-            let text = `*NUOVO ORDINE PAGATO CON NEXI!* 🍕%0A🆔 *Rif:* ${orderId}%0A%0A👤 *Cliente:* ${name}%0A📱 *Telefono:* ${phone}%0A${deliveryInfo}%0A`;
-            if(notes) text += `📝 *Note:* ${notes}%0A`; 
-            text += `%0A*RIEPILOGO ORDINE:*%0A`;
+            let text = `*NUOVO ORDINE PAGATO CON NEXI!*\nID Rif: ${orderId}\n\nCliente: ${name}\nTelefono: ${phone}\n${deliveryInfo}\n`;
+            if(notes) text += `Note: ${notes}\n`; 
+            text += `\n*RIEPILOGO ORDINE:*\n`;
 
             for(let id in cart) {
                 if (cart[id] > 0 && itemMap[id]) {
@@ -748,22 +749,23 @@
                     
                     let customTesto = "";
                     if(item.isCustom) {
-                        if(item.added.length > 0) customTesto += `%0A   ↳ Con: ${item.added.join(', ')}`;
-                        if(item.removed.length > 0) customTesto += `%0A   ↳ Senza: ${item.removed.join(', ')}`;
+                        if(item.added.length > 0) customTesto += `\n   -> Con: ${item.added.join(', ')}`;
+                        if(item.removed.length > 0) customTesto += `\n   -> Senza: ${item.removed.join(', ')}`;
                     }
                     
-                    text += `▫️ ${cart[id]}x ${item.name} (${lineTotal.toFixed(2)}€)${customTesto}%0A`;
+                    text += `- ${cart[id]}x ${item.name} (${lineTotal.toFixed(2)} Euro)${customTesto}\n`;
                 }
             }
 
-            if (total < 1.00) { alert("L'ordine minimo è 1.00 €!"); return; }
-            text += `%0A💰 *TOTALE: ${total.toFixed(2)} €*%0A`;
+            if (total < 1.00) { alert("L'ordine minimo è 1.00 Euro!"); return; }
+            text += `\n*TOTALE PAGATO: ${total.toFixed(2)} Euro*\n`;
             
-            localStorage.setItem('peterbun_order_message', text);
+            localStorage.removeItem('lvb_order_message');
+            localStorage.setItem('lvb_order_message', text);
             localStorage.setItem('lvb_pending_order', orderId); 
             
             const btn = document.getElementById('pay-btn');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Controllo Slot...'; 
+            btn.innerHTML = 'Controllo Slot...'; 
             btn.disabled = true;
 
             const WORKER_URL = "/paga"; 
@@ -780,13 +782,13 @@
                 if (data.success && data.redirectUrl) { 
                     window.location.href = data.redirectUrl;
                 } else { 
-                    alert("🚫 ATTENZIONE: " + data.error); 
-                    btn.innerHTML = '<i class="fa-regular fa-credit-card"></i> Paga con Nexi'; 
+                    alert("ATTENZIONE: " + data.error); 
+                    btn.innerHTML = 'Paga con Nexi'; 
                     btn.disabled = false; 
                 }
             } catch (error) {
                 alert("Errore di connessione. Riprova tra poco."); 
-                btn.innerHTML = '<i class="fa-regular fa-credit-card"></i> Paga con Nexi'; 
+                btn.innerHTML = 'Paga con Nexi'; 
                 btn.disabled = false;
             }
         }
